@@ -3,7 +3,7 @@ global:
   project: default
   source:
     repoURL: https://github.com/jonathanfoster/gitops-bridge.git
-    targetRevision: HEAD
+    targetRevision: main
   destination:
     server: https://kubernetes.default.svc
 certManager:
