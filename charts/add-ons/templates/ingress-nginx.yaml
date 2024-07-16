@@ -1,0 +1,26 @@
+{{- if and (.Values.ingressNginx) (.Values.ingressNginx.enabled) -}}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ingress-nginx
+  namespace: {{ .Values.global.namespace | default "argocd" }}
+spec:
+  project: {{ .Values.global.project | default "default" }}
+  source:
+    repoURL: {{ .Values.global.source.repoURL }}
+    path: add-ons/ingress-nginx
+    targetRevision: {{ .Values.global.source.targetRevision }}
+    helm:
+      values: |
+        ingress-nginx:
+        {{- toYaml .Values.ingressNginx | nindent 10 }}
+  destination:
+    server: {{ .Values.global.destination.server | default "https://kubernetes.default.svc" }}
+    namespace: ingress-nginx
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{- end -}}

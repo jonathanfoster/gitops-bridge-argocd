@@ -11,6 +11,11 @@ spec:
     path: charts/add-ons
     helm:
       releaseName: add-ons
+      values: |
+        ingressNginx:
+          controller:
+            service:
+              type: NodePort
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
