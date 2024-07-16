@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/jonathanfoster/gitops-bridge.git
     targetRevision: HEAD
-    path: chart
+    path: charts/add-ons
     helm:
       releaseName: add-ons
   destination:
