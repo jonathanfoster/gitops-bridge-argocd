@@ -1,0 +1,10 @@
+global:
+  namespace: argocd
+  project: default
+  source:
+    repoURL: https://github.com/jonathanfoster/gitops-bridge.git
+    targetRevision: HEAD
+  destination:
+    server: https://kubernetes.default.svc
+certManager:
+  enabled: true

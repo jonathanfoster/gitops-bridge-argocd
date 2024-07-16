@@ -1,0 +1,7 @@
+---
+apiVersion: v2
+name: add-ons
+description: A Helm chart for add-ons
+type: application
+version: 0.0.0
+appVersion: 0.0.0
