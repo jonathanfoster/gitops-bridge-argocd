@@ -9,6 +9,10 @@ all: debug
 debug:
 	helm template add-ons ${CHART_PATH} --debug
 
+.PHONY: deploy-local
+deploy-local:
+	kubectl apply -f clusters/local/add-ons.yaml
+
 .PHONY: install-toolchain
 install-toolchain:
 	brew install helm
