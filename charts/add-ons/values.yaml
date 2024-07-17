@@ -12,3 +12,5 @@ certManager:
     enabled: true
 ingressNginx:
   enabled: true
+kubernetesDashboard:
+  enabled: true
