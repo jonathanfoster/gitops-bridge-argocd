@@ -12,7 +12,7 @@ spec:
     targetRevision: v1.15.1
     helm:
       values: |
-        {{- toYaml .Values.certManager | nindent 8 }}
+        {{- toYaml (omit .Values.certManager "enabled") | nindent 8 }}
   destination:
     server: {{ .Values.global.destination.server | default "https://kubernetes.default.svc" }}
     namespace: cert-manager
