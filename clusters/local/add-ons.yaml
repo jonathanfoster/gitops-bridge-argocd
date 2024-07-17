@@ -16,6 +16,8 @@ spec:
           controller:
             service:
               type: NodePort
+        kubernetesDashboard:
+          enabled: false
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
