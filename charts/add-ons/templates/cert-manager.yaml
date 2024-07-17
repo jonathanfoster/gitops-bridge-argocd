@@ -7,13 +7,12 @@ metadata:
 spec:
   project: {{ .Values.global.project | default "default" }}
   source:
-    repoURL: {{ .Values.global.source.repoURL }}
-    path: add-ons/cert-manager
-    targetRevision: {{ .Values.global.source.targetRevision }}
+    chart: cert-manager
+    repoURL: https://charts.jetstack.io
+    targetRevision: v1.15.1
     helm:
       values: |
-        cert-manager:
-        {{- toYaml .Values.certManager | nindent 10 }}
+        {{- toYaml .Values.certManager | nindent 8 }}
   destination:
     server: {{ .Values.global.destination.server | default "https://kubernetes.default.svc" }}
     namespace: cert-manager

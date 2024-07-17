@@ -7,13 +7,12 @@ metadata:
 spec:
   project: {{ .Values.global.project | default "default" }}
   source:
-    repoURL: {{ .Values.global.source.repoURL }}
-    path: add-ons/ingress-nginx
-    targetRevision: {{ .Values.global.source.targetRevision }}
+    chart: ingress-nginx
+    repoURL: https://kubernetes.github.io/ingress-nginx
+    targetRevision: 4.11.0
     helm:
       values: |
-        ingress-nginx:
-        {{- toYaml .Values.ingressNginx | nindent 10 }}
+        {{- toYaml .Values.ingressNginx | nindent 8 }}
   destination:
     server: {{ .Values.global.destination.server | default "https://kubernetes.default.svc" }}
     namespace: ingress-nginx
