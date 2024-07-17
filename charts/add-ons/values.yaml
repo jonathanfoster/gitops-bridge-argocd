@@ -8,5 +8,7 @@ global:
     server: https://kubernetes.default.svc
 certManager:
   enabled: true
+  crds:
+    enabled: true
 ingressNginx:
   enabled: true
