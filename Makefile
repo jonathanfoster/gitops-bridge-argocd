@@ -25,6 +25,7 @@ deploy-local:
 
 .PHONY: install-toolchain
 install-toolchain:
+	brew install argocd
 	brew install helm
 
 .PHONY: lint
