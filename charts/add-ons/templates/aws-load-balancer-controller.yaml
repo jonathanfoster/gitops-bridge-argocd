@@ -1,0 +1,25 @@
+{{- if and (.Values.awsLoadBalancerController) (.Values.awsLoadBalancerController.enabled) -}}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: aws-load-balancer-controller
+  namespace: {{ .Values.global.namespace | default "argocd" }}
+spec:
+  project: {{ .Values.global.project | default "default" }}
+  source:
+    chart: aws-load-balancer-controller
+    repoURL: https://aws.github.io/eks-charts
+    targetRevision: 1.7.1
+    helm:
+      values: |
+        {{- toYaml (omit .Values.awsLoadBalancerController "enabled") | nindent 8 }}
+  destination:
+    server: {{ .Values.global.destination.server | default "https://kubernetes.default.svc" }}
+    namespace: kube-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{- end -}}

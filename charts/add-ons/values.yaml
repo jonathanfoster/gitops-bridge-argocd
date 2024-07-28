@@ -6,6 +6,8 @@ global:
     targetRevision: main
   destination:
     server: https://kubernetes.default.svc
+awsLoadBalancerController:
+  enabled: true
 certManager:
   enabled: true
   crds:

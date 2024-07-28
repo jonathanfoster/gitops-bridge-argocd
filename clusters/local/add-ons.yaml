@@ -12,6 +12,10 @@ spec:
     helm:
       releaseName: add-ons
       values: |
+        awsLoadBalancerController:
+          clusterName: local
+          region: us-east-1
+          vpcId: vpc-1234567890abcdef
         ingressNginx:
           controller:
             service:
