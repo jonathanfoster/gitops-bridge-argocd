@@ -13,12 +13,11 @@ spec:
       releaseName: add-ons
       values: |
         awsEbsCsiDriver:
-          controller:
-            region: us-east-1
+          enabled: false
+        awsEfsCsiDriver:
+          enabled: false
         awsLoadBalancerController:
-          clusterName: local
-          region: us-east-1
-          vpcId: vpc-1234567890abcdef
+          enabled: false
         ingressNginx:
           controller:
             service:
