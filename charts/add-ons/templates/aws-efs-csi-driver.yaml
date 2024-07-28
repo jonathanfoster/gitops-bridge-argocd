@@ -1,0 +1,25 @@
+{{- if and (.Values.awsEfsCsiDriver) (.Values.awsEfsCsiDriver.enabled) -}}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: aws-efs-csi-driver
+  namespace: {{ .Values.global.namespace | default "argocd" }}
+spec:
+  project: {{ .Values.global.project | default "default" }}
+  source:
+    chart: aws-efs-csi-driver
+    repoURL: https://kubernetes-sigs.github.io/aws-efs-csi-driver
+    targetRevision: 3.0.7
+    helm:
+      values: |
+        {{- toYaml (omit .Values.awsEfsCsiDriver "enabled") | nindent 8 }}
+  destination:
+    server: {{ .Values.global.destination.server | default "https://kubernetes.default.svc" }}
+    namespace: kube-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{- end -}}

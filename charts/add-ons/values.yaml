@@ -8,6 +8,8 @@ global:
     server: https://kubernetes.default.svc
 awsEbsCsiDriver:
   enabled: true
+awsEfsCsiDriver:
+  enabled: true
 awsLoadBalancerController:
   enabled: true
 certManager:
