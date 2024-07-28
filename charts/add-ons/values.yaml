@@ -12,6 +12,8 @@ certManager:
     enabled: true
 clusterAutoscaler:
   enabled: true
+externalDns:
+  enabled: true
 externalSecrets:
   enabled: true
 ingressNginx:
