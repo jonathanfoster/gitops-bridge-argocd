@@ -8,7 +8,7 @@ spec:
   project: {{ .Values.global.project | default "default" }}
   source:
     chart: metrics-server
-    repoURL: https://kubernetes-sigs.github.io/metrics-server/
+    repoURL: https://kubernetes-sigs.github.io/metrics-server
     targetRevision: 3.12.1
     helm:
       values: |
