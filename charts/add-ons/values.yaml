@@ -6,6 +6,8 @@ global:
     targetRevision: main
   destination:
     server: https://kubernetes.default.svc
+awsEbsCsiDriver:
+  enabled: true
 awsLoadBalancerController:
   enabled: true
 certManager:

@@ -12,6 +12,9 @@ spec:
     helm:
       releaseName: add-ons
       values: |
+        awsEbsCsiDriver:
+          controller:
+            region: us-east-1
         awsLoadBalancerController:
           clusterName: local
           region: us-east-1
