@@ -10,6 +10,8 @@ certManager:
   enabled: true
   crds:
     enabled: true
+clusterAutoscaler:
+  enabled: true
 ingressNginx:
   enabled: true
 metricsServer:
