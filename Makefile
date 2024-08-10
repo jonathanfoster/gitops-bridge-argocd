@@ -1,7 +1,6 @@
 SHELL = /usr/bin/env bash -o pipefail
 .SHELLFLAGS = -ec
 
-CHART_PATH = charts/add-ons
 CLUSTER_NAME ?= gitops-bridge
 
 .PHONY: all
@@ -30,11 +29,13 @@ cluster-delete:
 
 .PHONY: debug
 debug:
-	helm template add-ons ${CHART_PATH} --debug
+	helm template add-ons charts/add-ons --debug
+	helm template monitoring charts/monitoring --debug
 
 .PHONY: deploy-local
 deploy-local:
 	kubectl apply -f clusters/local/add-ons.yaml
+	kubectl apply -f clusters/local/monitoring.yaml
 
 .PHONY: install-toolchain
 install-toolchain:
@@ -43,4 +44,5 @@ install-toolchain:
 
 .PHONY: lint
 lint:
-	helm lint ${CHART_PATH}
+	helm lint charts/add-ons
+	helm lint charts/monitoring

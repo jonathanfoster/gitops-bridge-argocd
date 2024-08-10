@@ -1,0 +1,10 @@
+global:
+  namespace: argocd
+  project: default
+  source:
+    repoURL: https://github.com/jonathanfoster/gitops-bridge.git
+    targetRevision: main
+  destination:
+    server: https://kubernetes.default.svc
+kubePrometheusStack:
+  enabled: true

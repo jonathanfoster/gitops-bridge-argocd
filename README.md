@@ -15,10 +15,11 @@ kubectl create namespace argocd
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 ```
 
-### 3. Install Add-Ons
+### 3. Install Apps
 
 ```bash
 kubectl apply -n argocd -f clusters/local/add-ons.yaml
+kubectl apply -n argocd -f clusters/local/monitoring.yaml
 ```
 
 ## Accessing the Argo CD Server
