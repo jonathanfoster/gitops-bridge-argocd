@@ -1,4 +1,4 @@
-# GitOps Bridge
+# GitOps Bridge Argo
 
 ## Getting Started
 
