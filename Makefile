@@ -27,13 +27,18 @@ cluster-create:
 cluster-delete:
 	kind delete cluster --name=${CLUSTER_NAME}
 
-.PHONY: debug
-debug:
+.PHONY: helm-debug
+helm-debug:
 	helm template add-ons charts/add-ons --debug
 	helm template monitoring charts/monitoring --debug
 
-.PHONY: deploy-local
-deploy-local:
+.PHONY: helm-lint
+helm-lint:
+	helm lint charts/add-ons
+	helm lint charts/monitoring
+
+.PHONY: deploy
+deploy:
 	kubectl apply -f clusters/local/add-ons.yaml
 	kubectl apply -f clusters/local/monitoring.yaml
 
@@ -43,6 +48,4 @@ install-toolchain:
 	brew install helm
 
 .PHONY: lint
-lint:
-	helm lint charts/add-ons
-	helm lint charts/monitoring
+lint: helm-lint
