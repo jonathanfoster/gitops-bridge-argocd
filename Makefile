@@ -1,7 +1,7 @@
 SHELL = /usr/bin/env bash -o pipefail
 .SHELLFLAGS = -ec
 
-CLUSTER_NAME ?= gitops-bridge
+CLUSTER_NAME ?= gitops-bridge-argo
 
 .PHONY: all
 all: debug
