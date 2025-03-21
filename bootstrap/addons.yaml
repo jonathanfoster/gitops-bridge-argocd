@@ -1,19 +1,24 @@
 ---
 apiVersion: argoproj.io/v1alpha1
-kind: Application
+kind: ApplicationSet
 metadata:
   name: addons
   namespace: argocd
 spec:
-  destination:
-    name: in-cluster
-    namespace: argocd
-  source:
-    path: addons/
-    repoURL: https://github.com/jonathanfoster/gitops-bridge-argo.git
-    targetRevision: main
-  project: default
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+  generators:
+    - clusters: {}
+  template:
+    metadata:
+      name: addons
+      namespace: argocd
+    spec:
+      source:
+        path: addons/
+        repoURL: https://github.com/jonathanfoster/gitops-bridge-argocd.git
+        targetRevision: main
+      destination:
+        name: '{{name}}'
+        namespace: argocd
+      project: default
+      syncPolicy:
+        automated: {}
