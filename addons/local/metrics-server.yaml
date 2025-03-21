@@ -1,0 +1,13 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: metrics-server
+  namespace: argocd
+spec:
+  template:
+    spec:
+      source:
+        values: |
+          args:
+            - --kubelet-insecure-tls

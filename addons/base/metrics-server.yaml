@@ -2,23 +2,23 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: addons
+  name: metrics-server
   namespace: argocd
 spec:
   generators:
     - clusters: {}
   template:
     metadata:
-      name: addons
+      name: metrics-server
       namespace: argocd
     spec:
       source:
-        path: addons/{{metadata.annotations.environment}}/kustomization.yaml
-        repoURL: https://github.com/jonathanfoster/gitops-bridge-argocd.git
-        targetRevision: main
+        chart: metrics-server
+        repoURL: https://kubernetes-sigs.github.io/metrics-server/
+        targetRevision: 3.12.2
       destination:
         name: '{{name}}'
-        namespace: argocd
+        namespace: kube-system
       project: default
       syncPolicy:
         automated: {}
