@@ -12,14 +12,18 @@ spec:
       name: metrics-server
       namespace: argocd
     spec:
-      source:
-        chart: metrics-server
-        repoURL: https://kubernetes-sigs.github.io/metrics-server/
-        targetRevision: 3.12.2
-        helm:
-          values: |
-            args:
-              - --kubelet-insecure-tls
+      sources:
+        - repoURL: https://github.com/jonathanfoster/gitops-bridge-argocd.git
+          targetRevision: main
+          ref: values
+        - chart: metrics-server
+          repoURL: https://kubernetes-sigs.github.io/metrics-server/
+          targetRevision: 3.12.2
+          helm:
+            ignoreMissingValueFiles: true
+            valueFiles:
+              - $values/clusters/default/addons/metrics-server-values.yaml
+              - $values/clusters/{{name}}/addons/metrics-server-values.yaml
       destination:
         name: '{{name}}'
         namespace: kube-system
