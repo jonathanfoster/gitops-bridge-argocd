@@ -14,8 +14,8 @@ spec:
       values: |
         {{- toYaml (omit .Values.metricsServer "enabled") | nindent 8 }}
   destination:
-    server: {{ .Values.global.destination.server | default "https://kubernetes.default.svc" }}
-    namespace: kube-system
+    name: {{ .Values.global.destination.name | default "in-cluster" }}
+    namespace: {{ .Values.global.destination.namespace | default "kube-system" }}
   syncPolicy:
     automated:
       prune: true

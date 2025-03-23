@@ -14,8 +14,8 @@ spec:
       values: |
         {{- toYaml (omit .Values.kubePrometheusStack "enabled") | nindent 8 }}
   destination:
-    server: {{ .Values.global.destination.server | default "https://kubernetes.default.svc" }}
-    namespace: monitoring
+    name: {{ .Values.global.destination.name | default "in-cluster" }}
+    namespace: {{ .Values.global.destination.namespace | default "monitoring" }}
   syncPolicy:
     automated:
       prune: true
