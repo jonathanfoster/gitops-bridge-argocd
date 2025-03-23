@@ -15,11 +15,35 @@ kubectl create namespace argocd
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 ```
 
+### 3. Create Secrets
+
+```bash
+kubectl create namespace monitoring
+```
+
+```bash
+kubectl create secret generic -n monitoring grafana-cloud-logs \
+--from-literal=username=$GRAFANA_LOGS_USERNAME \
+--from-literal=password=$GRAFANA_TOKEN
+```
+
+```bash
+kubectl create secret generic -n monitoring grafana-cloud-metrics \
+--from-literal=username=$GRAFANA_METRICS_USERNAME \
+--from-literal=password=$GRAFANA_TOKEN
+```
+
+```bash
+kubectl create secret generic -n monitoring grafana-cloud-traces \
+--from-literal=username=$GRAFANA_TRACES_USERNAME \
+--from-literal=password=$GRAFANA_TOKEN
+```
+
 ### 3. Install Apps
 
 ```bash
-kubectl apply -n argocd -f clusters/local/add-ons.yaml
-kubectl apply -n argocd -f clusters/local/monitoring.yaml
+kubectl apply -n argocd -f clusters/development/addons.yaml
+kubectl apply -n argocd -f clusters/development/monitoring.yaml
 ```
 
 ## Accessing the Argo CD Server

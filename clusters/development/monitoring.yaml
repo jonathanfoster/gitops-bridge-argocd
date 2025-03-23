@@ -10,11 +10,15 @@ spec:
     targetRevision: main
     path: charts/monitoring
     helm:
-      values: |
-        kubePrometheusStack:
-          enabled: true
+      valuesObject:
+        global:
+          destination:
+            name: gitops-bridge-argocd-dev
+        k8sMonitoring:
+          cluster:
+            name: gitops-bridge-argocd-dev
   destination:
-    name: in-cluster
+    name: gitops-bridge-argocd-dev
     namespace: argocd
   syncPolicy:
     automated:

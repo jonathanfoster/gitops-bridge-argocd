@@ -1,18 +1,18 @@
-{{- if and (.Values.kubePrometheusStack) (.Values.kubePrometheusStack.enabled) -}}
+{{- if and (.Values.k8sMonitoring) (.Values.k8sMonitoring.enabled) -}}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: kube-prometheus-stack
+  name: k8s-monitoring
   namespace: {{ .Values.global.namespace | default "argocd" }}
 spec:
   project: {{ .Values.global.project | default "default" }}
   source:
-    chart: kube-prometheus-stack
-    repoURL: https://prometheus-community.github.io/helm-charts
-    targetRevision: {{ (.Values.kubePrometheusStack.source).targetRevision | default "61.*" }}
+    chart: k8s-monitoring
+    repoURL: https://grafana.github.io/helm-charts
+    targetRevision: {{ (.Values.k8sMonitoring.source).targetRevision | default "2.*" }}
     helm:
       values: |
-        {{- toYaml (omit .Values.kubePrometheusStack "enabled") | nindent 8 }}
+        {{- toYaml (omit .Values.k8sMonitoring "enabled") | nindent 8 }}
   destination:
     name: {{ .Values.global.destination.name | default "in-cluster" }}
     namespace: {{ .Values.global.destination.namespace | default "monitoring" }}
