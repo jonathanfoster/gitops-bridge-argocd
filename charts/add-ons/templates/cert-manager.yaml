@@ -9,7 +9,7 @@ spec:
   source:
     chart: cert-manager
     repoURL: https://charts.jetstack.io
-    targetRevision: v1.15.1
+    targetRevision: {{ (.Values.certManager.source).targetRevision | default "v1.*" }}
     helm:
       values: |
         {{- toYaml (omit .Values.certManager "enabled") | nindent 8 }}

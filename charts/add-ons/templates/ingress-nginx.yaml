@@ -9,7 +9,7 @@ spec:
   source:
     chart: ingress-nginx
     repoURL: https://kubernetes.github.io/ingress-nginx
-    targetRevision: 4.11.0
+    targetRevision: {{ (.Values.ingressNginx.source).targetRevision | default "4.*" }}
     helm:
       values: |
         {{- toYaml (omit .Values.ingressNginx "enabled") | nindent 8 }}
