@@ -24,7 +24,5 @@ externalSecrets:
   enabled: true
 ingressNginx:
   enabled: true
-kubePrometheusStack:
-  enabled: true
 metricsServer:
   enabled: true
