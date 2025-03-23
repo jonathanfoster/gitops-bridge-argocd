@@ -1,6 +1,7 @@
 SHELL = /usr/bin/env bash -o pipefail
 .SHELLFLAGS = -ec
 
+CHARTS_DIR ?= charts
 CLUSTER_NAME ?= gitops-bridge-argocd
 
 .PHONY: all
@@ -21,13 +22,11 @@ argo-server:
 
 .PHONY: helm-debug
 helm-debug:
-	helm template add-ons charts/add-ons --debug
-	helm template monitoring charts/monitoring --debug
+	@find ${CHARTS_DIR} -maxdepth 1 -mindepth 1 -type d -exec bash -c "helm template test {} --debug" \;
 
 .PHONY: helm-lint
 helm-lint:
-	helm lint charts/add-ons
-	helm lint charts/monitoring
+	@find ${CHARTS_DIR} -maxdepth 1 -mindepth 1 -type d -exec bash -c "helm lint {} --strict" \;
 
 .PHONY: kind-create
 kind-create:
