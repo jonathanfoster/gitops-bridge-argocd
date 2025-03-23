@@ -1,7 +1,7 @@
 SHELL = /usr/bin/env bash -o pipefail
 .SHELLFLAGS = -ec
 
-CLUSTER_NAME ?= gitops-bridge-argo
+CLUSTER_NAME ?= gitops-bridge-argocd
 
 .PHONY: all
 all: debug
@@ -19,14 +19,6 @@ argo-password:
 argo-server:
 	kubectl port-forward svc/argocd-server -n argocd 8080:443
 
-.PHONY: cluster-create
-cluster-create:
-	kind create cluster --name=${CLUSTER_NAME}
-
-.PHONY: kind-create
-cluster-delete:
-	kind delete cluster --name=${CLUSTER_NAME}
-
 .PHONY: helm-debug
 helm-debug:
 	helm template add-ons charts/add-ons --debug
@@ -36,6 +28,18 @@ helm-debug:
 helm-lint:
 	helm lint charts/add-ons
 	helm lint charts/monitoring
+
+.PHONY: kind-create
+kind-create:
+	kind create cluster --name=${CLUSTER_NAME}-dev
+	kind create cluster --name=${CLUSTER_NAME}-test
+	kind create cluster --name=${CLUSTER_NAME}-prod
+
+.PHONY: kind-delete
+kind-delete:
+	kind delete cluster --name=${CLUSTER_NAME}-dev
+	kind delete cluster --name=${CLUSTER_NAME}-test
+	kind delete cluster --name=${CLUSTER_NAME}-prod
 
 .PHONY: deploy
 deploy:
