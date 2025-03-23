@@ -1,9 +1,6 @@
 global:
   namespace: argocd
   project: default
-  source:
-    repoURL: https://github.com/jonathanfoster/gitops-bridge-argocd.git
-    targetRevision: main
   destination:
     name: in-cluster
     namespace: kube-system
