@@ -42,7 +42,7 @@ kind-delete:
 
 .PHONY: deploy
 deploy:
-	kubectl apply -f clusters/local/add-ons.yaml
+	kubectl apply -f clusters/local/addons.yaml
 	kubectl apply -f clusters/local/monitoring.yaml
 
 .PHONY: install-toolchain

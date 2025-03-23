@@ -1,16 +1,15 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: add-ons
+  name: addons
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: https://github.com/jonathanfoster/gitops-bridge-argocd.git
     targetRevision: main
-    path: charts/add-ons
+    path: charts/addons
     helm:
-      releaseName: add-ons
       values: |
         awsEbsCsiDriver:
           enabled: false

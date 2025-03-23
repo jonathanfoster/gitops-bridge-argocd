@@ -1,6 +1,6 @@
 apiVersion: v2
 name: monitoring
-description: A Helm chart for monitoring
+description: A Helm chart for cluster monitoring.
 type: application
 version: 0.0.0
 appVersion: 0.0.0
