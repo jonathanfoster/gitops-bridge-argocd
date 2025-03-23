@@ -1,11 +1,11 @@
-# GitOps Bridge Argo
+# GitOps Bridge Argo CD
 
 ## Getting Started
 
-### 1. Create Local Cluster
+### 1. Create Local Clusters
 
 ```bash
-kind create cluster --name=gitops-bridge
+kind create cluster --name=gitops-bridge-argocd
 ```
 
 ### 2. Install Argo CD
