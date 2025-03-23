@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/jonathanfoster/gitops-bridge.git
+    repoURL: https://github.com/jonathanfoster/gitops-bridge-argocd.git
     targetRevision: main
     path: charts/monitoring
     helm:
@@ -15,7 +15,7 @@ spec:
         kubePrometheusStack:
           enabled: true
   destination:
-    server: https://kubernetes.default.svc
+    name: in-cluster
     namespace: argocd
   syncPolicy:
     automated:

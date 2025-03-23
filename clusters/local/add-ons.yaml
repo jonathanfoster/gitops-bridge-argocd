@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/jonathanfoster/gitops-bridge.git
+    repoURL: https://github.com/jonathanfoster/gitops-bridge-argocd.git
     targetRevision: main
     path: charts/add-ons
     helm:
@@ -26,7 +26,7 @@ spec:
           args:
             - --kubelet-insecure-tls
   destination:
-    server: https://kubernetes.default.svc
+    name: in-cluster
     namespace: argocd
   syncPolicy:
     automated:
