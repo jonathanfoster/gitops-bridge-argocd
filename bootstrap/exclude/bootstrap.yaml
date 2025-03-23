@@ -1,33 +1,20 @@
 ---
 apiVersion: argoproj.io/v1alpha1
-kind: ApplicationSet
+kind: Application
 metadata:
-  name: bootstrap-addons
+  name: bootstrap
   namespace: argocd
 spec:
+  project: default
+  source:
+    repoURL: https://github.com/jonathanfoster/gitops-bridge-argocd.git
+    targetRevision: main
+    path: bootstrap/
+    directory:
+      recurse: true
+      exclude: exclude/*
+  destination:
+    namespace: argocd
+    name: in-cluster
   syncPolicy:
-    preserveResourcesOnDeletion: true
-  generators:
-    - clusters:
-        selector:
-          matchExpressions:
-            - key: akuity.io/argo-cd-cluster-name
-              operator: NotIn
-              values: [in-cluster]
-  template:
-    metadata:
-      name: bootstrap-addons
-    spec:
-      project: default
-      source:
-        repoURL: '{{metadata.annotations.addons-repo-url}}'
-        targetRevision: '{{metadata.annotations.addons-repo-revision}}'
-        path: bootstrap/addons
-        directory:
-          recurse: true
-          exclude: exclude/*
-      destination:
-        namespace: argocd
-        name: '{{name}}'
-      syncPolicy:
-        automated: {}
+    automated: {}
