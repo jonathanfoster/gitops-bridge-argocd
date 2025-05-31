@@ -63,3 +63,32 @@ Get the admin password.
 ```bash
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d && echo
 ```
+
+## Repository Structure
+
+```bash
+gitops-bridge-argocd/
+├── bootstrap/                  # ArgoCD bootstrap manifests
+│   ├── base/                   # Base ArgoCD installation
+│   └── overlays/               # Environment-specific ArgoCD configs
+├── clusters/                   # Cluster-specific configurations
+│   ├── development/            # Development cluster configs
+│   │   ├── addons.yaml         # Cluster addons (cert-manager, etc.)
+│   │   ├── apps.yaml           # Application definitions
+│   │   └── kustomization.yaml  # Kustomize config for the cluster
+│   └── production/             # Production cluster configs
+│       ├── addons.yaml
+│       ├── apps.yaml
+│       └── kustomization.yaml
+├── apps/                       # Application definitions
+│   ├── cert-manager/           # cert-manager configuration
+│   │   ├── base/               # Base configuration
+│   │   └── overlays/           # Environment-specific configs
+│   ├── monitoring/             # Monitoring stack (Prometheus, Grafana)
+│   └── other-apps/             # Other applications
+├── charts/                     # Helm charts (if you're using Helm)
+├── environments/               # Environment-specific values
+│   ├── development/
+│   └── production/
+└── Makefile                    # Build and deployment automation
+```
