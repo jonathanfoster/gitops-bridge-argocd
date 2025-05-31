@@ -24,10 +24,6 @@ argo-server:
 helm-debug:
 	@find ${CHARTS_DIR} -maxdepth 1 -mindepth 1 -type d -exec bash -c "helm template test {} --debug" \;
 
-.PHONY: helm-lint
-helm-lint:
-	@find ${CHARTS_DIR} -maxdepth 1 -mindepth 1 -type d -exec bash -c "helm lint {} --strict" \;
-
 .PHONY: kind-create
 kind-create:
 	kind create cluster --name=${CLUSTER_NAME}-dev
@@ -45,6 +41,15 @@ deploy:
 install-toolchain:
 	brew install argocd
 	brew install helm
+	brew install yamllint
 
 .PHONY: lint
-lint: helm-lint
+lint: lint-helm lint-yaml
+
+.PHONY: lint-helm
+lint-helm:
+	@find ${CHARTS_DIR} -maxdepth 1 -mindepth 1 -type d -exec bash -c "helm lint {} --strict" \;
+
+.PHONY: lint-yaml
+lint-yaml:
+	yamllint .
