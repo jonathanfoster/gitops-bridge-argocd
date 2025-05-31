@@ -31,14 +31,10 @@ helm-lint:
 .PHONY: kind-create
 kind-create:
 	kind create cluster --name=${CLUSTER_NAME}-dev
-	kind create cluster --name=${CLUSTER_NAME}-test
-	kind create cluster --name=${CLUSTER_NAME}-prod
 
 .PHONY: kind-delete
 kind-delete:
 	kind delete cluster --name=${CLUSTER_NAME}-dev
-	kind delete cluster --name=${CLUSTER_NAME}-test
-	kind delete cluster --name=${CLUSTER_NAME}-prod
 
 .PHONY: deploy
 deploy:
