@@ -5,16 +5,18 @@ metadata:
   name: bootstrap
   namespace: argocd
 spec:
+  destination:
+    namespace: default
+    server: https://kubernetes.default.svc
   project: default
   source:
+    path: clusters/development
     repoURL: https://github.com/jonathanfoster/gitops-bridge-argocd.git
     targetRevision: main
-    path: bootstrap/
-    directory:
-      recurse: true
-      exclude: exclude/*
-  destination:
-    namespace: argocd
-    name: in-cluster
   syncPolicy:
-    automated: {}
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
