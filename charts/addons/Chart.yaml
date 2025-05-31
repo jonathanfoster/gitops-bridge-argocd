@@ -1,6 +1,0 @@
-apiVersion: v2
-name: addons
-description: A Helm chart for cluster add-ons.
-type: application
-version: 0.0.0
-appVersion: 0.0.0
