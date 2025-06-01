@@ -6,11 +6,6 @@ CLUSTER_NAME ?= gitops-bridge-argocd
 .PHONY: all
 all: help
 
-.PHONY: argocd-bootstrap
-argocd-bootstrap: ## Bootstrap ArgoCD installation
-	kubectl create namespace argocd
-	kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-
 .PHONY: argocd-password
 argocd-password: ## Get ArgoCD admin password
 	kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d && echo
@@ -19,8 +14,13 @@ argocd-password: ## Get ArgoCD admin password
 argocd-server: ## Start port-forward for ArgoCD server
 	kubectl port-forward svc/argocd-server -n argocd 8080:443
 
+.PHONY: bootstrap-argocd
+bootstrap-argocd: ## Bootstrap cluster with ArgoCD
+	helm repo add argo https://argoproj.github.io/argo-helm
+	helm install argocd argo/argo-cd -n argocd --create-namespace
+
 .PHONY: bootstrap-development
-bootstrap-development: ## Bootstrap development cluster with ArgoCD apps
+bootstrap-development: ## Bootstrap cluster with development apps
 	kubectl apply -f bootstrap/development.yaml
 
 .PHONY: help
@@ -41,6 +41,7 @@ kind-delete: ## Delete kind clusters
 .PHONY: install-toolchain
 install-toolchain: ## Install required tools (argocd, helm, yamllint)
 	brew install argocd
+	brew install helm
 	brew install yamllint
 
 .PHONY: lint
